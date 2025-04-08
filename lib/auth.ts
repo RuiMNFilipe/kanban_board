@@ -2,8 +2,8 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { verifyPassword } from "../utils/password";
-import prisma from "./prisma";
 import { signInSchema } from "./zod";
+import prisma from "./prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -16,9 +16,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           let user = null;
 
-          const { email, password } = await signInSchema.parseAsync(
-            credentials
-          );
+          const parsedCredentials = await signInSchema.spa(credentials);
+
+          const { success, data, error } = parsedCredentials;
+
+          if (!success) throw new Error(error.message);
+
+          const { email, password } = data;
 
           user = await prisma.user.findUnique({
             where: {
@@ -26,30 +30,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           });
 
-          if (!user || !verifyPassword(password, user.password)) {
+          if (!user) {
             return null;
           }
 
           return user;
         } catch (error) {
+          console.error("NextAuth file error:", error);
           return null;
         }
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
-  callbacks: {
-    authorized({ auth, request }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnHomePage = request.nextUrl.pathname === "/";
-
-      // Allow access to home page even if not logged in
-      if (isOnHomePage) return true;
-
-      // Require authentication for all other routes
-      return isLoggedIn;
-    },
-  },
 });

@@ -37,4 +37,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    authorized({ auth, request }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnHomePage = request.nextUrl.pathname === "/";
+
+      // Allow access to home page even if not logged in
+      if (isOnHomePage) return true;
+
+      // Require authentication for all other routes
+      return isLoggedIn;
+    },
+  },
 });

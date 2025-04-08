@@ -14,8 +14,6 @@ export const loginAction = async (formData: FormData) => {
       redirect: false,
     });
   } catch (e: any) {
-    console.log(e instanceof AuthError);
-
     if (e instanceof AuthError) {
       return {
         success: false,

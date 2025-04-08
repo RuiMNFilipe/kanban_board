@@ -30,7 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           });
 
-          if (!user) {
+          if (!user || verifyPassword(password, user.password)) {
             return null;
           }
 

@@ -16,13 +16,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           let user = null;
 
-          const parsedCredentials = await signInSchema.spa(credentials);
-
-          const { success, data, error } = parsedCredentials;
-
-          if (!success) throw new Error(error.message);
-
-          const { email, password } = data;
+          const { email, password } = await signInSchema.parseAsync(
+            credentials
+          );
 
           user = await prisma.user.findUnique({
             where: {

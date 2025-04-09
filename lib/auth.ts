@@ -27,9 +27,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
 
           if (!user) {
-            console.log("\n\n\n");
-            console.log("HERE");
-            console.log("\n\n\n");
             throw new CredentialsSignin();
           }
 

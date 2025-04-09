@@ -23,17 +23,25 @@ model User {
   name          String
   email         String         @unique
   password      String
-  tasks         Task[]
+  boards        Board[]
   notifications Notification[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
 
+model Board {
+  id     String @id @default(uuid())
+  name   String @unique
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks  Task[]
+}
+
 model Task {
   id            String         @id @default(uuid())
   title         String
-  userId        String
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  boardId       String
+  board         Board          @relation(fields: [boardId], references: [id], onDelete: Cascade)
   status        TaskStatus     @default(TODO)
   notifications Notification[]
   createdAt     DateTime       @default(now())

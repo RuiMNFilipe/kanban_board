@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { verifyPassword } from "../utils/password";
@@ -20,13 +20,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             credentials
           );
 
-          user = await prisma.user.findUnique({
+          user = await prisma.user.findUniqueOrThrow({
             where: {
               email: email,
             },
           });
 
-          if (!user || verifyPassword(password, user.password)) {
+          if (!user) {
+            console.log("\n\n\n");
+            console.log("HERE");
+            console.log("\n\n\n");
+            throw new CredentialsSignin();
+          }
+
+          if (!verifyPassword(password, user.password)) {
             return null;
           }
 

@@ -1,3 +1,20 @@
-export default function Home() {
-  return <h1>Home</h1>;
+import { logoutAction } from "@/actions/authentication";
+import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
+
+export default async function Home() {
+  const session = await auth();
+
+  if (!session?.user) return <h1>Hello random</h1>;
+
+  return (
+    <>
+      <h1>Hello {session.user.name}</h1>
+      <form action={logoutAction}>
+        <Button variant={"destructive"} type="submit">
+          Logout
+        </Button>
+      </form>
+    </>
+  );
 }

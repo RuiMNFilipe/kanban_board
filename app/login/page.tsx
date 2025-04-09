@@ -52,6 +52,7 @@ export default function LoginPage() {
   return (
     <AuthForm
       schema={signInSchema}
+      form={signInForm}
       fields={[
         {
           name: "email",

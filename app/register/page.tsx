@@ -56,6 +56,7 @@ export default function RegisterPage() {
   return (
     <AuthForm
       schema={registerSchema}
+      form={registerForm}
       fields={[
         {
           name: "name",

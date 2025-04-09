@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { hashAndSaltPw } from "@/utils/password";
 import { AuthError } from "next-auth";
@@ -69,3 +69,5 @@ export const registerAction = async (formData: FormData) => {
     };
   }
 };
+
+export const logoutAction = async () => await signOut();

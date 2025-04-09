@@ -12,8 +12,7 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { InputHTMLAttributes } from "react";
-import { DefaultValues, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { DefaultValues, UseFormReturn } from "react-hook-form";
 
 // Type that accepts either a ZodObject or a ZodEffects wrapping a ZodObject
 type ValidFormSchema =
@@ -33,6 +32,7 @@ type AuthFormProps<TSchema extends ValidFormSchema> = {
   fields: FieldConfig<z.infer<TSchema>>[];
   submitLabel: "Register" | "Sign In";
   defaultValues?: DefaultValues<z.infer<TSchema>>;
+  form: UseFormReturn<z.TypeOf<TSchema>, any, z.TypeOf<TSchema>>;
 };
 
 export function AuthForm<TSchema extends ValidFormSchema>({
@@ -41,13 +41,9 @@ export function AuthForm<TSchema extends ValidFormSchema>({
   schema,
   submitLabel,
   defaultValues = {} as DefaultValues<z.infer<TSchema>>,
+  form,
 }: AuthFormProps<TSchema>) {
   type FormValues = z.infer<TSchema>;
-
-  const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: defaultValues,
-  });
 
   return (
     <Form {...form}>

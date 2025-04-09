@@ -11,15 +11,26 @@ async function main() {
       email: "alice@test.com",
       name: "Alice",
       password: hashAndSaltPw("alice"),
-      tasks: {
+      boards: {
         create: [
           {
-            title: "Alice Task 1",
-            status: "TODO",
-          },
-          {
-            title: "Alice Task 2",
-            status: "DONE",
+            name: "Alice's Board 1",
+            tasks: {
+              create: [
+                {
+                  title: "Random Thing 1",
+                  status: "TODO",
+                },
+                {
+                  title: "Random Thing 2",
+                  status: "IN_PROGRESS",
+                },
+                {
+                  title: "Random Thing 3",
+                  status: "DONE",
+                },
+              ],
+            },
           },
         ],
       },
@@ -33,15 +44,26 @@ async function main() {
       email: "bob@test.com",
       name: "Bob",
       password: hashAndSaltPw("bob"),
-      tasks: {
+      boards: {
         create: [
           {
-            title: "Bob Task 1",
-            status: "IN_PROGRESS",
-          },
-          {
-            title: "Bob Task 2",
-            status: "DONE",
+            name: "Bob's Board 1",
+            tasks: {
+              create: [
+                {
+                  title: "Bob's Random Task 1",
+                  status: "TODO",
+                },
+                {
+                  title: "Bob's Random Task 2",
+                  status: "TODO",
+                },
+                {
+                  title: "Bob's Random Task 3",
+                  status: "IN_PROGRESS",
+                },
+              ],
+            },
           },
         ],
       },

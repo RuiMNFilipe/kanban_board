@@ -10,11 +10,6 @@ export default async function Home() {
   return (
     <>
       <h1>Hello {session.user.name}</h1>
-      <form action={logoutAction}>
-        <Button variant={"destructive"} type="submit">
-          Logout
-        </Button>
-      </form>
     </>
   );
 }

@@ -29,3 +29,9 @@ export const registerSchema = object({
   path: ["cPassword"],
   message: "Passwords do not match.",
 });
+
+export const boardFormSchema = object({
+  name: string({ required_error: "Board name is required" }).min(1, {
+    message: "Board name cannot be empty",
+  }),
+});

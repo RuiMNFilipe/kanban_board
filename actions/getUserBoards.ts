@@ -15,15 +15,28 @@ export default async function getUserBoardsAction() {
       },
       select: {
         name: true,
-        boards: true,
-        _count: true,
+        boards: {
+          include: {
+            _count: {
+              select: {
+                tasks: true,
+              },
+            },
+          },
+        },
       },
     });
 
+    const boardsWithTaskCount =
+      user?.boards.map((board) => ({
+        ...board,
+        taskCount: board._count,
+        _count: undefined,
+      })) || [];
+
     return {
       name: user?.name,
-      boards: user?.boards || [],
-      count: user?._count,
+      boards: boardsWithTaskCount,
     };
   } catch (error) {
     console.error(error);

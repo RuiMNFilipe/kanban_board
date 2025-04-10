@@ -64,7 +64,7 @@ export default async function BoardsPage() {
                 </h3>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">
-                    {data.count?.boards || 0} tasks
+                    {board.taskCount.tasks || 0} tasks
                   </span>
                   <span className="text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                     View Board →

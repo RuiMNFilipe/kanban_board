@@ -16,12 +16,14 @@ export default async function getUserBoardsAction() {
       select: {
         name: true,
         boards: true,
+        _count: true,
       },
     });
 
     return {
       name: user?.name,
       boards: user?.boards || [],
+      count: user?._count,
     };
   } catch (error) {
     console.error(error);

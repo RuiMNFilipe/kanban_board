@@ -6,7 +6,7 @@ export const signInSchema = object({
     .email("Invalid email"),
   password: string({ required_error: "Password is required" })
     .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
+    // .min(8, "Password must be more than 8 characters")
     .max(32, "Password cannot exceed 32 characers"),
 });
 

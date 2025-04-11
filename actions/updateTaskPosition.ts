@@ -23,6 +23,7 @@ export default async function updateTaskPositionAction(
       },
       data: {
         position: newPosition,
+        columnId,
       },
     });
     revalidatePath(`/boards/${updatedTask.boardId}`);

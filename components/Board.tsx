@@ -11,6 +11,8 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "./TaskItem";
+import updateTaskPositionAction from "@/actions/updateTaskPosition";
+import updateTaskColumnAction from "@/actions/updateTaskColum";
 
 type BoardProps = {
   columns: Column[];
@@ -65,6 +67,22 @@ export default function Board({ columns, tasks }: BoardProps) {
           }
           return task;
         });
+
+        // Save order in db
+        for (const task of updatedTasks.filter(
+          (task) => task.columnId === overColumnId
+        )) {
+          const result = await updateTaskPositionAction(
+            task.id,
+            task.position,
+            overColumnId
+          );
+
+          if (!result.success) {
+            // Add toast error message
+            console.error("Error updating task position:", result.error);
+          }
+        }
       } else {
         // Change columns
         const newTask = { ...activeTask, columnId: overColumnId };
@@ -84,6 +102,21 @@ export default function Board({ columns, tasks }: BoardProps) {
           }
           return task;
         });
+
+        for (const task of updatedTasks.filter(
+          (task) => task.columnId === overColumnId
+        )) {
+          const result = await updateTaskColumnAction(
+            task.id,
+            overColumnId,
+            task.position
+          );
+
+          if (!result.success) {
+            // Add toast error message
+            console.error("Error updating task column change:", result.error);
+          }
+        }
       }
       setTaskState(updatedTasks);
       setActiveTaskId(null);

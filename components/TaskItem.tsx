@@ -3,6 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@prisma/client";
+import { HTMLAttributes } from "react";
 
 export default function TaskItem({ task }: { task: Task }) {
   const {
@@ -14,7 +15,7 @@ export default function TaskItem({ task }: { task: Task }) {
     isDragging,
   } = useSortable({ id: task.id });
 
-  const style = {
+  const style: HTMLAttributes<HTMLDivElement>["style"] = {
     transform: CSS.Transform.toString(transform),
     transition,
     cursor: isDragging ? "grabbing" : "grab",

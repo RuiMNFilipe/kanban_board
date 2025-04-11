@@ -18,7 +18,7 @@ type BoardProps = {
 };
 
 export default function Board({ columns, tasks }: BoardProps) {
-  const [columnState, setColumnState] = useState<Column[]>(columns);
+  const [columnState, _] = useState<Column[]>(columns);
   const [taskState, setTaskState] = useState<Task[]>(tasks);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
 

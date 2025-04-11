@@ -17,6 +17,7 @@ export default async function getUserBoardAction(boardId: string) {
         },
       },
       select: {
+        columns: true,
         tasks: true,
         name: true,
       },

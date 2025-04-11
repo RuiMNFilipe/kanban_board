@@ -2,7 +2,7 @@
 
 import { Column, Task } from "@prisma/client";
 import BoardColumn from "./BoardColumn";
-import { useState } from "react";
+import { startTransition, useOptimistic, useState } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -23,13 +23,20 @@ export default function Board({ columns, tasks }: BoardProps) {
   const [columnState, _] = useState<Column[]>(columns);
   const [taskState, setTaskState] = useState<Task[]>(tasks);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
+  const [optimisticTasks, setOptimisticTasks] = useOptimistic(
+    taskState,
+    (currentTasks, optimisticUpdate: Task[]) => {
+      if (!optimisticUpdate) return currentTasks;
+      return optimisticUpdate;
+    }
+  );
 
   async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (!over) return;
 
-    let updatedTasks = [...taskState];
+    let updatedTasks = [...optimisticTasks];
 
     const activeTask = updatedTasks.find((task) => task.id === active.id);
     if (!activeTask) return;
@@ -68,6 +75,10 @@ export default function Board({ columns, tasks }: BoardProps) {
           return task;
         });
 
+        startTransition(() => {
+          setOptimisticTasks(updatedTasks);
+        });
+
         // Save order in db
         for (const task of updatedTasks.filter(
           (task) => task.columnId === overColumnId
@@ -101,6 +112,10 @@ export default function Board({ columns, tasks }: BoardProps) {
             return { ...task, position: position };
           }
           return task;
+        });
+
+        startTransition(() => {
+          setOptimisticTasks(updatedTasks);
         });
 
         for (const task of updatedTasks.filter(
@@ -138,14 +153,16 @@ export default function Board({ columns, tasks }: BoardProps) {
           <BoardColumn
             key={column.id}
             column={column}
-            tasks={taskState.filter((task) => task.columnId === column.id)}
+            tasks={optimisticTasks.filter(
+              (task) => task.columnId === column.id
+            )}
           />
         ))}
       </div>
       <DragOverlay>
         {activeTaskId ? (
           <TaskItem
-            task={taskState.find((task) => task.id === activeTaskId)!}
+            task={optimisticTasks.find((task) => task.id === activeTaskId)!}
           />
         ) : null}
       </DragOverlay>

@@ -27,19 +27,20 @@ export default function Board({ columns, tasks }: BoardProps) {
 
     if (!over) return;
 
-    const activeTask = taskState.find((task) => task.id === active.id);
+    let updatedTasks = [...taskState];
+
+    const activeTask = updatedTasks.find((task) => task.id === active.id);
     if (!activeTask) return;
 
-    // Determine column ID
     let overColumnId: string;
 
-    if (over.id === activeTask?.columnId) {
-      // Reordered within the same column
+    if (over.id === activeTask.columnId) {
       overColumnId = over.id;
     } else {
-      // Determine the same column ID from the taskState or over.id
-      if (taskState.find((task) => task.id === over.id)) {
-        overColumnId = activeTask!.columnId;
+      if (updatedTasks.find((task) => task.id === over.id)) {
+        overColumnId = updatedTasks.find(
+          (task) => task.id === over.id
+        )!.columnId;
       } else {
         overColumnId = String(over.id);
       }
@@ -48,39 +49,16 @@ export default function Board({ columns, tasks }: BoardProps) {
     const overColumn = columnState.find((column) => column.id === overColumnId);
 
     if (activeTask && overColumn) {
-      const activeTaskIndex = taskState.findIndex(
-        (task) => task.id === active.id
+      const activeTaskIndex = updatedTasks.findIndex(
+        (task) => task.id === activeTask.id
       );
-      const overTaskIndex = taskState.findIndex((task) => task.id === over.id);
-
-      let updatedTasks = taskState.map((task) =>
-        task.id === activeTask.id ? { ...task, columnId: overColumn.id } : task
+      const overTaskIndex = updatedTasks.findIndex(
+        (task) => task.id === over.id
       );
 
-      let newPosition = 0;
-      if (taskState.find((task) => task.id === over.id)) {
-        newPosition = taskState.findIndex((task) => task.id === over.id);
-      } else {
-        newPosition = updatedTasks.filter(
-          (task) => task.columnId === overColumnId
-        ).length;
-      }
-
-      // Adjust positions in the target column
-      updatedTasks = updatedTasks.map((task) => {
-        if (task.columnId === overColumn.id && task.id !== activeTask.id) {
-          if (task.position >= newPosition) {
-            return { ...task, position: task.position + 1 };
-          }
-        }
-        return task;
-      });
-
-      setTaskState(updatedTasks);
-
-      if (overColumn.id === activeTask.columnId) {
+      if (overColumnId === activeTask.columnId) {
         // Reorder in same column
-        updatedTasks = arrayMove(taskState, activeTaskIndex, overTaskIndex);
+        updatedTasks = arrayMove(updatedTasks, activeTaskIndex, overTaskIndex);
         updatedTasks = updatedTasks.map((task, index) => {
           if (task.columnId === overColumnId) {
             return { ...task, position: index };
@@ -88,8 +66,7 @@ export default function Board({ columns, tasks }: BoardProps) {
           return task;
         });
       } else {
-        // Moved to a different column
-
+        // Change columns
         const newTask = { ...activeTask, columnId: overColumnId };
         updatedTasks = updatedTasks.filter((task) => task.id !== active.id);
         updatedTasks.splice(overTaskIndex, 0, newTask);
@@ -100,7 +77,9 @@ export default function Board({ columns, tasks }: BoardProps) {
 
         updatedTasks = updatedTasks.map((task) => {
           if (task.columnId === overColumnId) {
-            const position = overColumnTasks.findIndex((t) => t.id === task.id);
+            const position = overColumnTasks.find(
+              (t) => t.id === task.id
+            )!.position;
             return { ...task, position: position };
           }
           return task;

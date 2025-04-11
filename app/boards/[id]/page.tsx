@@ -25,7 +25,7 @@ export default async function BoardDetailPage({
             {userBoard?.name}'s Tasks
           </h1>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-md p-6 flex justify-evenly">
           <Board columns={userBoard.columns} tasks={userBoard.tasks} />
         </div>
       </div>

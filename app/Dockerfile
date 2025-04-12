@@ -6,12 +6,14 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install
 
+
+# Copy the entire application code
+COPY . ./
+
 # Copy Prisma schema
 COPY prisma/schema.prisma ./prisma/schema.prisma
 RUN pnpx prisma generate
 
-# Copy the entire application code
-COPY . ./
 RUN pnpm run build
 
 EXPOSE 3000

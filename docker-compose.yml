@@ -19,13 +19,13 @@ services:
 
   kanban_board:
     build:
-      context: ./
-      dockerfile: ./app/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./app:/app
-      - node_modules:/app/node_modules
+      - .:/app
+      - /app/node_modules
     env_file:
       - .env
     depends_on:
@@ -36,4 +36,3 @@ services:
 volumes:
   postgres_data:
   redis_data:
-  node_modules:

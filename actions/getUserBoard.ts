@@ -16,10 +16,10 @@ export default async function getUserBoardAction(boardId: string) {
           email: session?.user?.email!,
         },
       },
-      select: {
+      include: {
         columns: true,
         tasks: true,
-        name: true,
+        user: true,
       },
     });
 

@@ -13,18 +13,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { InputHTMLAttributes } from "react";
 import { DefaultValues, UseFormReturn } from "react-hook-form";
-
-// Type that accepts either a ZodObject or a ZodEffects wrapping a ZodObject
-type ValidFormSchema =
-  | ZodObject<any, any, any, any>
-  | ZodEffects<ZodObject<any, any, any, any>>;
-
-type FieldConfig<T extends ValidFormSchema> = {
-  name: keyof T & string;
-  type: InputHTMLAttributes<HTMLInputElement>["type"];
-  label: string;
-  placeholder?: string;
-};
+import { FieldConfig, ValidFormSchema } from "@/types";
 
 type AuthFormProps<TSchema extends ValidFormSchema> = {
   schema: TSchema;

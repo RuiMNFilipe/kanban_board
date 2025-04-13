@@ -35,3 +35,9 @@ export const boardFormSchema = object({
     message: "Board name cannot be empty",
   }),
 });
+
+export const createTaskSchema = object({
+  title: string({ required_error: "Task title is required" }).min(1, {
+    message: "Task title cannot be empty.",
+  }),
+});

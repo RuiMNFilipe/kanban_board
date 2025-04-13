@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import getUserBoardAction from "@/actions/getUserBoard";
 import BackButton from "@/components/BackButton";
 import Board from "@/components/Board";
+import BoardDetailPageClient from "@/components/BoardDetailPageClient";
 
 export default async function BoardDetailPage({
   params,
@@ -24,9 +25,19 @@ export default async function BoardDetailPage({
           <h1 className="text-3xl font-semibold text-gray-800">
             {userBoard?.name}'s Tasks
           </h1>
+          <BoardDetailPageClient userId={userBoard.userId} columnId={id} />
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 flex justify-evenly">
-          <Board columns={userBoard.columns} tasks={userBoard.tasks} />
+          {userBoard.tasks.length > 0 ? (
+            <Board columns={userBoard.columns} tasks={userBoard.tasks} />
+          ) : (
+            <div className="text-center">
+              <p className="text-lg text-gray-600 mb-2">No tasks added yet.</p>
+              <p className="text-sm text-gray-500">
+                Start adding tasks to your board.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

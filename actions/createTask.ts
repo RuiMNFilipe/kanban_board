@@ -8,6 +8,7 @@ import { AuthError } from "next-auth";
 import { z } from "zod";
 import createNotificationAction from "./createNotification";
 import redisClient from "@/lib/redis";
+import { revalidatePath } from "next/cache";
 
 export default async function createTaskAction(
   formData: FormData,
@@ -101,6 +102,8 @@ export default async function createTaskAction(
       `user:${session.user.id}:notifications`,
       JSON.stringify(notificationPayload)
     );
+
+    revalidatePath(`/boards/${boardId}`);
 
     return {
       success: true,

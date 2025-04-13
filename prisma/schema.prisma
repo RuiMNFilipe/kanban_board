@@ -61,6 +61,7 @@ model Task {
 
 model Notification {
   id        String             @id @default(uuid())
+  text      String
   userId    String
   taskId    String
   user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -28,7 +28,6 @@ export default async function createBoardAction(formData: FormData) {
   const { name } = parsed.data;
 
   try {
-    console.log(session.user.id);
     await prisma.board.create({
       data: {
         name,

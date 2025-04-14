@@ -28,13 +28,13 @@ export default async function BoardDetailPage({
           <BoardDetailPageClient userId={userBoard.userId} columnId={id} />
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 flex justify-evenly">
-          {userBoard.tasks.length > 0 ? (
+          {userBoard.columns.length > 0 ? (
             <Board columns={userBoard.columns} tasks={userBoard.tasks} />
           ) : (
             <div className="text-center">
               <p className="text-lg text-gray-600 mb-2">No tasks added yet.</p>
               <p className="text-sm text-gray-500">
-                Start adding tasks to your board.
+                Start by adding columns to your board.
               </p>
             </div>
           )}

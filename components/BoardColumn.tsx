@@ -26,11 +26,15 @@ export default function BoardColumn({ column, tasks }: ColumnProps) {
   return (
     <div ref={setNodeRef} className="bg-gray-100 rounded-lg p-4 w-80">
       <h2 className="font-bold mb-4">{column.name}</h2>
-      <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
-        {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
-        ))}
-      </SortableContext>
+      {tasks.length > 0 ? (
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+          {tasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </SortableContext>
+      ) : (
+        <h2>No tasks added yet</h2>
+      )}
     </div>
   );
 }

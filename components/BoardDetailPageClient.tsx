@@ -17,7 +17,7 @@ export default function BoardDetailPageClient({
     <div>
       <Button
         onClick={() => setShowCreateTaskForm(!showCreateTaskForm)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold hover:cursor-pointer"
         disabled={!columnId}
       >
         {showCreateTaskForm ? "Close Form" : "Create Task"}

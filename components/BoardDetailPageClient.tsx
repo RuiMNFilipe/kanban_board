@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CreateTaskForm from "@/components/CreateTaskForm";
+import { Button } from "./ui/button";
 
 export default function BoardDetailPageClient({
   userId,
@@ -14,13 +15,13 @@ export default function BoardDetailPageClient({
 
   return (
     <div>
-      <button
+      <Button
         onClick={() => setShowCreateTaskForm(!showCreateTaskForm)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold"
         disabled={!columnId}
       >
         {showCreateTaskForm ? "Close Form" : "Create Task"}
-      </button>
+      </Button>
       {showCreateTaskForm && columnId && (
         <div className="mt-4">
           <CreateTaskForm

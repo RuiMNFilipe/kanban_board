@@ -16,7 +16,7 @@ import { boardFormSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import createBoardAction from "@/actions/createBoard";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Link, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
 export function BoardForm() {

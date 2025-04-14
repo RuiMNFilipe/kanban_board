@@ -1,4 +1,5 @@
 import getUserBoardsAction from "@/actions/getUserBoards";
+import BoardItem from "@/components/BoardItem";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -53,25 +54,7 @@ export default async function BoardsPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.boards.map((board) => (
-            <Link
-              key={board.id}
-              href={`/boards/${board.id}`}
-              className="block group"
-            >
-              <div className="h-40 bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group-hover:border-blue-400">
-                <h3 className="text-xl font-medium text-gray-800 group-hover:text-blue-600 transition-colors">
-                  {board.name}
-                </h3>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">
-                    {board.taskCount.tasks || 0} tasks
-                  </span>
-                  <span className="text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    View Board →
-                  </span>
-                </div>
-              </div>
-            </Link>
+            <BoardItem board={board} key={board.id} />
           ))}
 
           <Link href="/boards/new" className="block group">

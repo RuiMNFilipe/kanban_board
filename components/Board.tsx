@@ -13,6 +13,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "./TaskItem";
 import updateTaskPositionAction from "@/actions/updateTaskPosition";
 import updateTaskColumnAction from "@/actions/updateTaskColum";
+import { Button } from "./ui/button";
 
 type BoardProps = {
   columns: Column[];
@@ -146,6 +147,11 @@ export default function Board({ columns, tasks }: BoardProps) {
     }
   }
 
+  async function addColumn() {
+    try {
+    } catch (error) {}
+  }
+
   return (
     <DndContext onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
       <div className="flex overflow-x-auto gap-4">
@@ -166,6 +172,7 @@ export default function Board({ columns, tasks }: BoardProps) {
           />
         ) : null}
       </DragOverlay>
+      <Button onClick={addColumn}>Add Column</Button>
     </DndContext>
   );
 }

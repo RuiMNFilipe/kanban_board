@@ -147,11 +147,6 @@ export default function Board({ columns, tasks }: BoardProps) {
     }
   }
 
-  async function addColumn() {
-    try {
-    } catch (error) {}
-  }
-
   return (
     <DndContext onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
       <div className="flex overflow-x-auto gap-4">
@@ -172,7 +167,6 @@ export default function Board({ columns, tasks }: BoardProps) {
           />
         ) : null}
       </DragOverlay>
-      <Button onClick={addColumn}>Add Column</Button>
     </DndContext>
   );
 }

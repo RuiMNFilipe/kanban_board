@@ -127,7 +127,7 @@ export function BoardForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">
+          <Button className="hover:cursor-pointer" type="submit">
             <Plus /> Create Board
           </Button>
         </form>

@@ -1,10 +1,11 @@
 "use server";
 
+import { AuthError } from "next-auth";
+
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { boardFormSchema } from "@/lib/zod";
 import formDataToObject from "@/utils/formDataToObject";
-import { AuthError } from "next-auth";
 
 export default async function createBoardAction(formData: FormData) {
   const session = await auth();
@@ -28,7 +29,7 @@ export default async function createBoardAction(formData: FormData) {
   const { name } = parsed.data;
 
   try {
-    await prisma.board.create({
+    const newBoard = await prisma.board.create({
       data: {
         name,
         user: {
@@ -37,6 +38,16 @@ export default async function createBoardAction(formData: FormData) {
           },
         },
       },
+    });
+
+    const defaultColumns = [
+      { name: "To Do", boardId: newBoard.id },
+      { name: "In Progress", boardId: newBoard.id },
+      { name: "Done", boardId: newBoard.id },
+    ];
+
+    await prisma.column.createMany({
+      data: defaultColumns,
     });
 
     return {

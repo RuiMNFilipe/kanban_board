@@ -3,14 +3,23 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import deleteBoardAction from "@/actions/deleteBoard";
+import { useState } from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 type BoardActionsProps = {
   boardId: string;
+  boardName: string;
   onEdit: () => void;
 };
 
-export default function BoardActions({ boardId, onEdit }: BoardActionsProps) {
-  async function onDelete(boardId: string) {
+export default function BoardActions({
+  boardId,
+  boardName,
+  onEdit,
+}: BoardActionsProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  async function handleDelete(boardId: string) {
     try {
       const result = await deleteBoardAction(boardId);
 
@@ -34,10 +43,23 @@ export default function BoardActions({ boardId, onEdit }: BoardActionsProps) {
       </Button>
       <Button
         className="hover:cursor-pointer bg-red-400 hover:bg-red-500 text-white"
-        onClick={() => onDelete(boardId)}
+        onClick={() => setModalOpen(true)}
       >
         <Trash2 />
       </Button>
+      {modalOpen && (
+        <ConfirmationModal
+          modalTitle={`Are you sure you want to delete ${boardName}?`}
+          onClose={() => setModalOpen(false)}
+          open={modalOpen}
+          setOpen={() => setModalOpen(true)}
+          onConfirm={() => {
+            handleDelete(boardId);
+            setModalOpen(false);
+          }}
+          id={boardId}
+        />
+      )}
     </div>
   );
 }

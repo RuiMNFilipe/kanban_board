@@ -14,7 +14,7 @@ import { Button } from "./ui/button";
 import { useForm } from "react-hook-form";
 import { boardFormSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import createBoardAction from "@/actions/createBoard";
+import createBoardAction from "@/actions/boards/createBoard";
 import { useRouter } from "next/navigation";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";

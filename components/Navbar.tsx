@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { logoutAction } from "@/actions/authentication";
+import { logoutAction } from "@/actions/auth/authentication";
 import { redirect } from "next/navigation";
 import { Session } from "next-auth";
 import Link from "next/link";

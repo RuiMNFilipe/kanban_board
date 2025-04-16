@@ -2,7 +2,7 @@
 
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
-import deleteBoardAction from "@/actions/deleteBoard";
+import deleteBoardAction from "@/actions/boards/deleteBoard";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
 

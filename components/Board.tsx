@@ -11,8 +11,8 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "./TaskItem";
-import updateTaskPositionAction from "@/actions/updateTaskPosition";
-import updateTaskColumnAction from "@/actions/updateTaskColum";
+import updateTaskPositionAction from "@/actions/tasks/updateTaskPosition";
+import updateTaskColumnAction from "@/actions/tasks/updateTaskColum";
 
 type BoardProps = {
   columns: Column[];

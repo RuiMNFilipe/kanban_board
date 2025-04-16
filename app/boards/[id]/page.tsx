@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import getUserBoardAction from "@/actions/getUserBoard";
+import getUserBoardAction from "@/actions/boards/getUserBoard";
 import BackButton from "@/components/BackButton";
 import Board from "@/components/Board";
 import BoardDetailPageClient from "@/components/BoardDetailPageClient";

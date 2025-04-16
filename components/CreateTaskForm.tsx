@@ -14,7 +14,7 @@ import { createTaskSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import createTaskAction from "@/actions/createTask";
+import createTaskAction from "@/actions/tasks/createTask";
 import { useState } from "react";
 
 type CreateTaskFormProps = {

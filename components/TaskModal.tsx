@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { taskTitleSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import createTaskAction from "@/actions/createTask";
+import createTaskAction from "@/actions/tasks/createTask";
 import {
   Form,
   FormControl,

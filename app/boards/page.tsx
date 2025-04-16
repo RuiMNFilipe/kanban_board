@@ -1,4 +1,4 @@
-import getUserBoardsAction from "@/actions/getUserBoards";
+import getUserBoardsAction from "@/actions/boards/getUserBoards";
 import BoardItem from "@/components/BoardItem";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";

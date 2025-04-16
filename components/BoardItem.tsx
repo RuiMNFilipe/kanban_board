@@ -4,7 +4,7 @@ import { Board } from "@prisma/client";
 import Link from "next/link";
 import { useState } from "react";
 import BoardActions from "./BoardActions";
-import updateBoardNameAction from "@/actions/updateBoardName";
+import updateBoardNameAction from "@/actions/boards/updateBoardName";
 
 export default function BoardItem({
   board,

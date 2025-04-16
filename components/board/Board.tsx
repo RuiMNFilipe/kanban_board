@@ -1,7 +1,7 @@
 "use client";
 
 import { Column, Task } from "@prisma/client";
-import BoardColumn from "./BoardColumn";
+import BoardColumn from "@/components/board/BoardColumn";
 import { startTransition, useOptimistic, useState } from "react";
 import {
   DndContext,
@@ -10,7 +10,7 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import TaskItem from "./TaskItem";
+import TaskItem from "@/components/task/TaskItem";
 import updateTaskPositionAction from "@/actions/tasks/updateTaskPosition";
 import updateTaskColumnAction from "@/actions/tasks/updateTaskColum";
 

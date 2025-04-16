@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
 import getUserBoardAction from "@/actions/boards/getUserBoard";
-import BackButton from "@/components/BackButton";
-import Board from "@/components/Board";
-import BoardDetailPageClient from "@/components/BoardDetailPageClient";
+import BackButton from "@/components/custom/BackButton";
+import Board from "@/components/board/Board";
+import BoardDetailPageClient from "@/components/board/BoardDetailPageClient";
 import Link from "next/link";
 
 export default async function BoardDetailPage({

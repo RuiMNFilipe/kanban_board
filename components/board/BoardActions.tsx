@@ -1,10 +1,10 @@
 "use client";
 
 import { Pencil, Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import deleteBoardAction from "@/actions/boards/deleteBoard";
 import { useState } from "react";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "@/components/custom/ConfirmationModal";
 
 type BoardActionsProps = {
   boardId: string;

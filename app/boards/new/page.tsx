@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardForm } from "@/components/BoardForm";
+import { BoardForm } from "@/components/board/BoardForm";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 

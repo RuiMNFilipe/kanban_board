@@ -8,20 +8,23 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { Task } from "@prisma/client";
 
 type TaskModalProps = {
+  id: string;
   modalTitle: string;
   onClose: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
+  onConfirm: () => void;
 };
 
 export default function ConfirmationModal({
+  id,
   modalTitle,
   onClose,
   open,
   setOpen,
+  onConfirm,
 }: TaskModalProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -30,7 +33,11 @@ export default function ConfirmationModal({
           <DialogTitle>{modalTitle}</DialogTitle>
         </DialogHeader>
         <DialogFooter>
-          <Button className="hover:cursor-pointer" type="submit">
+          <Button
+            onClick={onConfirm}
+            className="hover:cursor-pointer"
+            type="submit"
+          >
             Confirm
           </Button>
           <Button

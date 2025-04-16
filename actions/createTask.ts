@@ -38,7 +38,7 @@ export default async function createTaskAction(
   const columnIdSchema = z.string().uuid();
 
   const parsedBoardId = boardIdSchema.safeParse(boardId);
-  const parsedColumnId = columnIdSchema.safeParse(boardId);
+  const parsedColumnId = columnIdSchema.safeParse(columnId);
 
   if (!parsedBoardId.success || !parsedColumnId.success) {
     return {
@@ -67,48 +67,62 @@ export default async function createTaskAction(
       };
     }
 
+    const tasksInColumn = await prisma.task.findMany({
+      where: {
+        columnId: parsedColumnId.data,
+      },
+      orderBy: {
+        position: "desc",
+      },
+      take: 1,
+    });
+
+    const position =
+      tasksInColumn.length > 0 ? tasksInColumn[0].position + 1 : 0;
+
     const newTask = await prisma.task.create({
       data: {
         title,
-        position: 0,
-        boardId,
-        columnId,
+        position,
+        boardId: parsedBoardId.data,
+        columnId: parsedColumnId.data,
       },
     });
 
-    const notificationPayload = {
-      message: `New task created: ${title}`,
-      taskId: newTask.id,
-    };
+    // const notificationPayload = {
+    //   message: `New task created: ${title}`,
+    //   taskId: newTask.id,
+    // };
 
-    const {
-      success: notificationSuccess,
-      error: notificationError,
-      newNotification,
-    } = await createNotificationAction(
-      notificationPayload.taskId,
-      notificationPayload.message
-    );
+    // const {
+    //   success: notificationSuccess,
+    //   error: notificationError,
+    //   newNotification,
+    // } = await createNotificationAction(
+    //   notificationPayload.taskId,
+    //   notificationPayload.message
+    // );
 
-    if (!notificationSuccess) {
-      console.error("Error creating notification:", notificationError);
-      return {
-        success: false,
-        error: "NotificationError",
-      };
-    }
+    // if (!notificationSuccess) {
+    //   console.error("Error creating notification:", notificationError);
+    //   return {
+    //     success: false,
+    //     error: "NotificationError",
+    //   };
+    // }
 
-    await redisClient.publish(
-      `user:${session.user.id}:notifications`,
-      JSON.stringify(notificationPayload)
-    );
+    // await redisClient.publish(
+    //   `user:${session.user.id}:notifications`,
+    //   JSON.stringify(notificationPayload)
+    // );
 
-    revalidatePath(`/boards/${boardId}`);
+    revalidatePath(`/boards/${parsedBoardId}`);
 
     return {
       success: true,
       error: "",
-      newNotification,
+      newTask,
+      // newNotification,
     };
   } catch (error) {
     console.error(error);

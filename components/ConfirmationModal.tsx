@@ -10,16 +10,14 @@ import {
 } from "./ui/dialog";
 
 type TaskModalProps = {
-  id: string;
   modalTitle: string;
   onClose: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
 };
 
 export default function ConfirmationModal({
-  id,
   modalTitle,
   onClose,
   open,

@@ -57,7 +57,6 @@ export default function BoardActions({
             handleDelete(boardId);
             setModalOpen(false);
           }}
-          id={boardId}
         />
       )}
     </div>

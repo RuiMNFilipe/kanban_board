@@ -97,9 +97,12 @@ export default function TaskModal({
                 </FormItem>
               )}
             />
-            <DialogFooter>
-              <Button type="submit">Create</Button>
+            <DialogFooter className="group">
+              <Button className="group-hover:cursor-pointer" type="submit">
+                Create
+              </Button>
               <Button
+                className="group-hover:cursor-pointer"
                 type="button"
                 variant={"secondary"}
                 onClick={() => {

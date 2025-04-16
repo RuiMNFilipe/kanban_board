@@ -79,14 +79,14 @@ export default function CreateTaskForm({
               type="button"
               onClick={onClose}
               variant="outline"
-              className="mr-2"
+              className="mr-2 hover:cursor-pointer"
               disabled={isLoading}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold hover:cursor-pointer"
               disabled={isLoading}
             >
               {isLoading ? "Creating..." : "Create Task"}

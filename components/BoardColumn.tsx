@@ -46,7 +46,7 @@ export default function BoardColumn({
       ) : (
         <h2>No tasks added yet</h2>
       )}
-      <Button className="mt-2" onClick={handleAddTask}>
+      <Button className="mt-2 hover:cursor-pointer" onClick={handleAddTask}>
         Add Task
       </Button>
       {modalOpen && (

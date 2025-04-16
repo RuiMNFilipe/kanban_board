@@ -5,23 +5,34 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Task } from "@prisma/client";
+import { Column, Task } from "@prisma/client";
 import TaskItem from "./TaskItem";
-
-type Column = {
-  id: string;
-  name: string;
-};
+import { useState } from "react";
+import { Button } from "./ui/button";
+import TaskModal from "./TaskModal";
 
 type ColumnProps = {
   column: Column;
   tasks: Task[];
+  boardId: string;
+  onTaskCreate: (task: Task) => void;
 };
 
-export default function BoardColumn({ column, tasks }: ColumnProps) {
+export default function BoardColumn({
+  column,
+  tasks,
+  boardId,
+  onTaskCreate,
+}: ColumnProps) {
   const { setNodeRef } = useDroppable({
     id: column.id,
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleAddTask = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div ref={setNodeRef} className="bg-gray-100 rounded-lg p-4 w-80">
@@ -34,6 +45,20 @@ export default function BoardColumn({ column, tasks }: ColumnProps) {
         </SortableContext>
       ) : (
         <h2>No tasks added yet</h2>
+      )}
+      <Button className="mt-2" onClick={handleAddTask}>
+        Add Task
+      </Button>
+      {modalOpen && (
+        <TaskModal
+          boardId={boardId}
+          columnId={column.id}
+          columnName={column.name}
+          onClose={() => setModalOpen(false)}
+          open={modalOpen}
+          onTaskCreate={onTaskCreate}
+          setOpen={setModalOpen}
+        />
       )}
     </div>
   );

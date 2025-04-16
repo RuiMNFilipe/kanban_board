@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { logoutAction } from "@/actions/auth/authentication";
 import { redirect } from "next/navigation";
 import { Session } from "next-auth";

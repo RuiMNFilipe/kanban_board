@@ -6,10 +6,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Column, Task } from "@prisma/client";
-import TaskItem from "./TaskItem";
+import TaskItem from "@/components/task/TaskItem";
 import { useState } from "react";
-import { Button } from "./ui/button";
-import TaskModal from "./TaskModal";
+import { Button } from "@/components/ui/button";
+import TaskModal from "@/components/task/TaskModal";
 
 type ColumnProps = {
   column: Column;

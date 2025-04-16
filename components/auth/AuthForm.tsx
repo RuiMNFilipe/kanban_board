@@ -1,6 +1,6 @@
 "use client";
 
-import { z, ZodEffects, ZodObject } from "zod";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -8,10 +8,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { InputHTMLAttributes } from "react";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { DefaultValues, UseFormReturn } from "react-hook-form";
 import { FieldConfig, ValidFormSchema } from "@/types";
 

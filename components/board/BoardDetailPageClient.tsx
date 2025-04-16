@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CreateTaskForm from "@/components/task/CreateTaskForm";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function BoardDetailPageClient({
   userId,

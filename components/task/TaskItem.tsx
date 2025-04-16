@@ -5,8 +5,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { Task } from "@prisma/client";
 import { X } from "lucide-react";
 import { HTMLAttributes, useState } from "react";
-import { Button } from "./ui/button";
-import ConfirmationModal from "./ConfirmationModal";
+import { Button } from "@/components/ui/button";
+import ConfirmationModal from "@/components/custom/ConfirmationModal";
 
 export default function TaskItem({ task }: { task: Task }) {
   const {

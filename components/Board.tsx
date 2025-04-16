@@ -13,7 +13,6 @@ import { arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "./TaskItem";
 import updateTaskPositionAction from "@/actions/updateTaskPosition";
 import updateTaskColumnAction from "@/actions/updateTaskColum";
-import { Button } from "./ui/button";
 
 type BoardProps = {
   columns: Column[];
@@ -31,6 +30,14 @@ export default function Board({ columns, tasks }: BoardProps) {
       return optimisticUpdate;
     }
   );
+
+  function handleTaskCreate(newTask: Task) {
+    startTransition(() => {
+      const updatedTasks = [...optimisticTasks, newTask];
+      setOptimisticTasks(updatedTasks);
+      setTaskState(updatedTasks);
+    });
+  }
 
   async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -148,15 +155,21 @@ export default function Board({ columns, tasks }: BoardProps) {
   }
 
   return (
-    <DndContext onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+    <DndContext
+      id="board-dnd-context"
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+    >
       <div className="flex overflow-x-auto gap-4">
         {columnState.map((column) => (
           <BoardColumn
             key={column.id}
+            boardId={column.boardId}
             column={column}
             tasks={optimisticTasks.filter(
               (task) => task.columnId === column.id
             )}
+            onTaskCreate={handleTaskCreate}
           />
         ))}
       </div>

@@ -40,7 +40,7 @@ export default function Navbar({ session }: NavbarProps) {
             <DropdownMenuTrigger className="hover:cursor-pointer" asChild>
               <Avatar>
                 <AvatarImage src="http://somerandomurl.com" />
-                <AvatarFallback className="text-black">
+                <AvatarFallback>
                   {session?.user?.name?.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>

@@ -6,7 +6,7 @@ import { createTaskSchema } from "@/lib/zod";
 import formDataToObject from "@/utils/formDataToObject";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-import createNotificationAction from "./createNotification";
+import createNotificationAction from "@/actions/notifications/createNotification";
 import redisClient from "@/lib/redis";
 import { revalidatePath } from "next/cache";
 

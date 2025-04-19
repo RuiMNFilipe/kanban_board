@@ -39,14 +39,6 @@ export default async function BoardDetailPage({
               </p>
             </div>
           )}
-          <div className="flex items-center shrink-0 w-32 my-4">
-            <Link
-              href="#"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-md"
-            >
-              Add Column
-            </Link>
-          </div>
         </div>
       </div>
     </div>

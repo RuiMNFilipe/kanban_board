@@ -40,6 +40,7 @@ export const createTaskSchema = object({
   title: string({ required_error: "Task title is required" }).min(1, {
     message: "Task title cannot be empty.",
   }),
+  columnId: string().uuid().optional(),
 });
 
 export const boardIdSchema = object({

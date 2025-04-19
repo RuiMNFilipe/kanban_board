@@ -2,6 +2,8 @@
 
 import { useTheme } from "@/providers/ThemeProvider";
 import { useEffect, useState } from "react";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type ThemeOptions = {
   value: "light" | "dark" | "system";
@@ -43,24 +45,38 @@ export function ThemeSettings() {
         Choose the appearance of the application.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <RadioGroup
+        value={theme}
+        onValueChange={setTheme}
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+      >
         {themeOptions.map((option) => (
           <div
             key={option.value}
-            className={`border rounded-lg p-4 cursor-pointer transition-all ${
-              theme === option.value
-                ? "border-primary bg-secondary"
-                : "hover:border-primary/50"
-            }`}
-            onClick={() => setTheme(option.value)}
+            className={`border rounded-lg p-4 cursor-pointer transition-all
+              ${
+                theme === option.value
+                  ? "border-primary bg-secondary"
+                  : "hover:border-primary/50"
+              }`}
           >
-            <div className="font-medium mb-1">{option.label}</div>
-            <div className="text-sm text-muted-foreground">
-              {option.description}
-            </div>
+            <RadioGroupItem
+              value={option.value}
+              className="sr-only"
+              id={`theme-${option.value}`}
+            />
+            <Label
+              htmlFor={`theme-${option.value}`}
+              className="flex flex-col space-y-1 cursor-pointer peer-checked:text-primary"
+            >
+              <div className="font-medium">{option.label}</div>
+              <div className="text-sm text-muted-foreground">
+                {option.description}
+              </div>
+            </Label>
           </div>
         ))}
-      </div>
+      </RadioGroup>
     </div>
   );
 }

@@ -3,21 +3,19 @@ import { auth } from "@/lib/auth";
 
 export async function middleware(request: NextRequest) {
   const session = await auth();
+  const isAuthenticated = !!session;
 
-  // Get the pathname of the next request
   const path = request.nextUrl.pathname;
-
-  // Define public routes that don't require authentication
   const publicRoutes = ["/", "/login", "/register", "/about"];
 
-  // If it's a public route, allow access
-  if (publicRoutes.includes(path)) return NextResponse.next();
+  if (isAuthenticated && path === "/")
+    return NextResponse.redirect(new URL("/boards", request.url));
 
-  // If no session and trying to access protected route, redirect to login
-  if (!session && !publicRoutes.includes(path))
+  if (!isAuthenticated && !publicRoutes.includes(path))
     return NextResponse.redirect(new URL("/login", request.url));
 
-  // Allow access to protected routes for authenticated users
+  if (publicRoutes.includes(path)) return NextResponse.next();
+
   return NextResponse.next();
 }
 

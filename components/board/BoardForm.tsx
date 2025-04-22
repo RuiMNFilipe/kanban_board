@@ -8,15 +8,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { boardFormSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import createBoardAction from "@/actions/createBoard";
+import createBoardAction from "@/actions/boards/createBoard";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Link, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
 export function BoardForm() {
@@ -127,7 +127,7 @@ export function BoardForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">
+          <Button className="hover:cursor-pointer" type="submit">
             <Plus /> Create Board
           </Button>
         </form>

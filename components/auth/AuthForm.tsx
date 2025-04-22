@@ -1,6 +1,6 @@
 "use client";
 
-import { z, ZodEffects, ZodObject } from "zod";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -8,23 +8,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { InputHTMLAttributes } from "react";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { DefaultValues, UseFormReturn } from "react-hook-form";
-
-// Type that accepts either a ZodObject or a ZodEffects wrapping a ZodObject
-type ValidFormSchema =
-  | ZodObject<any, any, any, any>
-  | ZodEffects<ZodObject<any, any, any, any>>;
-
-type FieldConfig<T extends ValidFormSchema> = {
-  name: keyof T & string;
-  type: InputHTMLAttributes<HTMLInputElement>["type"];
-  label: string;
-  placeholder?: string;
-};
+import { FieldConfig, ValidFormSchema } from "@/types";
 
 type AuthFormProps<TSchema extends ValidFormSchema> = {
   schema: TSchema;
@@ -68,7 +56,9 @@ export function AuthForm<TSchema extends ValidFormSchema>({
             )}
           />
         ))}
-        <Button type="submit">{submitLabel}</Button>
+        <Button className="hover:cursor-pointer" type="submit">
+          {submitLabel}
+        </Button>
       </form>
       {form.formState.errors.root?.invalidCredentials && (
         <div className="text-red-500">

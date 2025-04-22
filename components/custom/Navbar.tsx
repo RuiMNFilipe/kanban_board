@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { logoutAction } from "@/actions/authentication";
+} from "@/components/ui/dropdown-menu";
+import { logoutAction } from "@/actions/auth/authentication";
 import { redirect } from "next/navigation";
 import { Session } from "next-auth";
 import Link from "next/link";
@@ -31,16 +31,13 @@ export default function Navbar({ session }: NavbarProps) {
           />
         </Link>
       </div>
-      <div className="nav-items">
-        <Link href={"/about"}>About</Link>
-      </div>
       <div className="user">
         {session?.user ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="hover:cursor-pointer" asChild>
               <Avatar>
                 <AvatarImage src="http://somerandomurl.com" />
-                <AvatarFallback className="text-black">
+                <AvatarFallback>
                   {session?.user?.name?.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>

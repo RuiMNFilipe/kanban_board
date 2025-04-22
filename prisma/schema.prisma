@@ -30,11 +30,20 @@ model User {
 }
 
 model Board {
-  id     String @id @default(uuid())
-  name   String @unique
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tasks  Task[]
+  id      String   @id @default(uuid())
+  name    String   @unique
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+  columns Column[]
+}
+
+model Column {
+  id      String @id @default(uuid())
+  name    String
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks   Task[]
 }
 
 model Task {
@@ -42,7 +51,9 @@ model Task {
   title         String
   boardId       String
   board         Board          @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  status        TaskStatus     @default(TODO)
+  columnId      String
+  column        Column         @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  position      Int
   notifications Notification[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -50,6 +61,7 @@ model Task {
 
 model Notification {
   id        String             @id @default(uuid())
+  text      String
   userId    String
   taskId    String
   user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)

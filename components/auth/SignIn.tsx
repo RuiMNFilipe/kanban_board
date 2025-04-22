@@ -1,6 +1,6 @@
 "use client";
 
-import { loginAction } from "@/actions/authentication";
+import { loginAction } from "@/actions/auth/authentication";
 import { signInSchema } from "@/lib/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

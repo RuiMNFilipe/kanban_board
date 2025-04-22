@@ -59,3 +59,7 @@ export const boardIdSchema = object({
 export const taskTitleSchema = object({
   title: string().min(1, "Task title is required").trim(),
 });
+
+export const taskIdSchema = object({
+  id: string().uuid(),
+});

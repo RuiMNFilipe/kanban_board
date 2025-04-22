@@ -7,8 +7,14 @@ import { X } from "lucide-react";
 import { HTMLAttributes, useState } from "react";
 import { Button } from "@/components/ui/button";
 import ConfirmationModal from "@/components/custom/ConfirmationModal";
+import deleteTaskAction from "@/actions/tasks/deleteTask";
 
-export default function TaskItem({ task }: { task: Task }) {
+type TaskItemProps = {
+  task: Task;
+  onTaskDelete: (task: Task) => void;
+};
+
+export default function TaskItem({ task, onTaskDelete }: TaskItemProps) {
   const {
     attributes,
     listeners,
@@ -30,6 +36,21 @@ export default function TaskItem({ task }: { task: Task }) {
   function handleClick(e: React.MouseEvent) {
     e.stopPropagation();
     setConfirmationOpen(true);
+  }
+
+  async function handleTaskDelete(deleteTaskId: string) {
+    try {
+      const result = await deleteTaskAction(deleteTaskId);
+
+      if (result.success) {
+        alert(`Task ${result.deletedTask?.title} deleted successfully!`);
+        onTaskDelete(result.deletedTask!);
+      } else {
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -58,6 +79,7 @@ export default function TaskItem({ task }: { task: Task }) {
           onClose={() => setConfirmationOpen(false)}
           open={confirmationOpen}
           setOpen={setConfirmationOpen}
+          onConfirm={() => handleTaskDelete(task.id)}
         />
       )}
     </div>

@@ -16,6 +16,7 @@ type ColumnProps = {
   tasks: Task[];
   boardId: string;
   onTaskCreate: (task: Task) => void;
+  onTaskDelete: (task: Task) => void;
 };
 
 export default function BoardColumn({
@@ -23,6 +24,7 @@ export default function BoardColumn({
   tasks,
   boardId,
   onTaskCreate,
+  onTaskDelete,
 }: ColumnProps) {
   const { setNodeRef } = useDroppable({
     id: column.id,
@@ -40,7 +42,7 @@ export default function BoardColumn({
       {tasks.length > 0 ? (
         <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
           {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem key={task.id} task={task} onTaskDelete={onTaskDelete} />
           ))}
         </SortableContext>
       ) : (

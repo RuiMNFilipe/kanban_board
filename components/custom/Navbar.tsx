@@ -31,9 +31,6 @@ export default function Navbar({ session }: NavbarProps) {
           />
         </Link>
       </div>
-      <div className="nav-items">
-        <Link href={"/about"}>About</Link>
-      </div>
       <div className="user">
         {session?.user ? (
           <DropdownMenu>

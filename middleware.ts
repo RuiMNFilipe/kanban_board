@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const isAuthenticated = !!session;
 
   const path = request.nextUrl.pathname;
-  const publicRoutes = ["/", "/login", "/register", "/about"];
+  const publicRoutes = ["/", "/login", "/register"];
 
   if (isAuthenticated && path === "/")
     return NextResponse.redirect(new URL("/boards", request.url));

@@ -39,6 +39,14 @@ export default function Board({ columns, tasks }: BoardProps) {
     });
   }
 
+  function handleTaskDelete(task: Task) {
+    startTransition(() => {
+      const updatedTasks = optimisticTasks.filter((t) => t.id !== task.id);
+      setOptimisticTasks(updatedTasks);
+      setTaskState(updatedTasks);
+    });
+  }
+
   async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -170,6 +178,7 @@ export default function Board({ columns, tasks }: BoardProps) {
               (task) => task.columnId === column.id
             )}
             onTaskCreate={handleTaskCreate}
+            onTaskDelete={handleTaskDelete}
           />
         ))}
       </div>
@@ -177,6 +186,7 @@ export default function Board({ columns, tasks }: BoardProps) {
         {activeTaskId ? (
           <TaskItem
             task={optimisticTasks.find((task) => task.id === activeTaskId)!}
+            onTaskDelete={handleTaskDelete}
           />
         ) : null}
       </DragOverlay>

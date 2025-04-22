@@ -56,7 +56,9 @@ export function AuthForm<TSchema extends ValidFormSchema>({
             )}
           />
         ))}
-        <Button type="submit">{submitLabel}</Button>
+        <Button className="hover:cursor-pointer" type="submit">
+          {submitLabel}
+        </Button>
       </form>
       {form.formState.errors.root?.invalidCredentials && (
         <div className="text-red-500">
